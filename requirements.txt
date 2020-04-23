@@ -1,0 +1,2 @@
+python-telegram-bot
+atlassian-python-api
