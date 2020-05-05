@@ -4,7 +4,7 @@ from mycroft.skills.core import MycroftSkill, intent_file_handler
 from mycroft.util.log import getLogger
 import time
 
-class MycroftConfluenceSearch(MycroftSkill):
+class ConfluenceSearch(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.all_confluence_search_results = ''
@@ -168,5 +168,5 @@ class MycroftConfluenceSearch(MycroftSkill):
 
 
 def create_skill():
-    return MycroftConfluenceSearch()
+    return ConfluenceSearch()
 
