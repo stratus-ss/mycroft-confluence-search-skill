@@ -133,5 +133,5 @@ class ConfluenceSearch(MycroftSkill):
 
 
 def create_skill():
-    return MycroftConfluenceSearch()
+    return ConfluenceSearch()
 
