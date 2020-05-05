@@ -1,0 +1,4 @@
+search confluence for {Page} (under {ParentPage} |)
+search confluence under {ParentPage} for {Page}
+look in confluence for {Page} (under {ParentPage} |)
+find (pages with| all the pages with | ) {Page} (under {ParentPage} |) in confluence
