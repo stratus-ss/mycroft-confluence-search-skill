@@ -4,7 +4,7 @@ from mycroft.skills.core import MycroftSkill, intent_file_handler
 from mycroft.util.log import getLogger
 import time
 
-class ConfluenceSearch(MycroftSkill):
+class MycroftConfluenceSearch(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.all_confluence_search_results = ''
@@ -89,32 +89,6 @@ class ConfluenceSearch(MycroftSkill):
     def send_message_to_chat(self, text):
         self.updater.bot.send_message(chat_id=self.chat_id, text=text)
 
-<<<<<<< HEAD
-    def setup_telegram_bot(self):
-        # Setup the telegram bot
-        # botkey needs to be in the settingsmeta.yaml
-        self.botkey = ''
-        self.updater = Updater(token=self.botkey, use_context=True)
-        # chat_id needs to be in the settingsmeta.yaml
-        self.chat_id = ""
-
-    def search_confluence(self):
-        # URL needs to be in the settingsmeta.yaml
-        # confluence username needs to be in the settingsmeta.yaml
-        # confluence password needs to be in the settingsmeta.yaml
-        self.confluence = Confluence(
-            url="",
-            username="",
-            password="")
-
-    @intent_handler(IntentBuilder('SearchTitle').require('SearchKeyword').require("Title").optionally("Parent"))
-    @adds_context("DisplayMoreResults")
-    def handle_search_confluence_title(self, message):
-        print(message.data)
-        self.setup_telegram_bot()
-        self.search_confluence()
-        user_specified_title = message.data.get('Title')
-=======
     @intent_file_handler("search.confluence.intent")
     def handle_search_confluence_title(self, message):
         """
@@ -128,20 +102,13 @@ class ConfluenceSearch(MycroftSkill):
         user_specified_title = message.data.get('page')
         # The parent page is optional, it will be None if not determined by the intent
         parent_page = message.data.get('parentpage')
->>>>>>> updated __init__.py to remove the adapt intent and regex
 
         url = 'rest/api/content/search'
         params = {}
         params['cql'] = 'type={type} AND title~"{title}"'.format(type='page', title=user_specified_title)
         params['start'] = 0
         params['limit'] = 10
-<<<<<<< HEAD
-
-        print(">>>>>>>>>>>>> %s" % user_specified_title)
-
-=======
         # call the atlassian library to get a list of all the possible title matches
->>>>>>> updated __init__.py to remove the adapt intent and regex
         response = self.confluence.get(url, params=params)
         # Do some extra work if we need to narrow the results by the parent page
         if parent_page is not None:
@@ -160,13 +127,11 @@ class ConfluenceSearch(MycroftSkill):
         else:
             self.parse_these_results = response
             text = "I found the following results for the search containing: %s" % user_specified_title.upper()
-
         self.all_confluence_search_results = self.create_url_dict(self.parse_these_results)
-        print(self.all_confluence_search_results)
         self.send_message_to_chat(text)
         self.process_url_list()
 
 
 def create_skill():
-    return ConfluenceSearch()
+    return MycroftConfluenceSearch()
 
