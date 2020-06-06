@@ -104,10 +104,14 @@ class ConfluenceSearch(MycroftSkill):
         parent_page = message.data.get('parentpage')
 
         url = 'rest/api/content/search'
-        params = {}
-        params['cql'] = 'type={type} AND title~"{title}"'.format(type='page', title=user_specified_title)
-        params['start'] = 0
-        params['limit'] = 10
+        params = {
+            'cql': 'type={type} AND title~"{title}"'.format(
+                type='page', title=user_specified_title
+            ),
+            'start': 0,
+            'limit': 10,
+        }
+
         # call the atlassian library to get a list of all the possible title matches
         response = self.confluence.get(url, params=params)
         # Do some extra work if we need to narrow the results by the parent page
